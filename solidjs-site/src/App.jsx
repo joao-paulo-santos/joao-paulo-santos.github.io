@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js'
 import solidLogo from './assets/solid.svg'
-import testimg from './assets/test.jpg'
-import viteLogo from '/vite.svg'
+import testimg from '/img/test.jpg'
+import viteLogo from '/img/vite.svg'
 import './App.css'
 
 function App() {
