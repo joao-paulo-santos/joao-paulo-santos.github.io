@@ -15,15 +15,18 @@ function Navbar({children}) {
                 I'm a navbar, eeer kinda i mean
                 <ul className="absolute right-0 w-fit">
                     <li>
-                        <Link to={`Project/1`}>Projects</Link>
+                        <Link to={`Projects/1`}>Projects 1</Link>
                     </li>
                     <li>
-                        <Link to={`Project/2`}>Projects</Link>
+                        <Link to={`Projects/2`}>Projects 2</Link>
+                    </li>
+                    <li>
+                        <Link to={`Projecsts/2`}>not found</Link>
                     </li>
                 </ul>
             </div>
             <div className="m-11"></div>
-            {children ?? <Outlet />}
+            {children}
         </>
     )
 }

@@ -2,7 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {
     createBrowserRouter,
+    createHashRouter,
     RouterProvider,
+    HashRouter,
 } from "react-router-dom";
 import ErrorPage from "./error-page";
 import App from './App.jsx'
@@ -11,7 +13,7 @@ import Projects from "./routes/Projects.jsx";
 import Project from "./routes/Project.jsx";
 import Navbar from "./components/navbar/navbar.jsx";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
     {
         path: "/",
         element: <App />,
