@@ -1,0 +1,59 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  image = '/profilepic.jpeg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
+const socialImage = new URL(image, Astro.site ?? SITE_URL);
+const pageTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/ico/sitelogo.svg" />
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={SITE_TITLE} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={socialImage} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImage} />
+
+<!--
+  No-flash theme script. Runs synchronously before the body paints so the
+  correct theme is applied immediately. Must stay `is:inline` and un-deferred.
+-->
+<script is:inline>
+  (function () {
+    const stored = localStorage.getItem('theme');
+    if (stored === 'light' || stored === 'dark') {
+      document.documentElement.dataset.theme = stored;
+      return;
+    }
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+    document.documentElement.dataset.theme = prefersDark ? 'dark' : 'light';
+  })();
+</script>

@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Every visual property that can vary by theme lives here as a
+ * CSS custom property. Components must reference these variables instead of
+ * raw colors/fonts so that adding a new theme (e.g. the reserved retro/8-bit
+ * palette) is a single block edit.
+ *
+ * The active theme is set via <html data-theme="light|dark"> by the no-flash
+ * script in BaseHead.astro. The `[data-theme="..."]` selectors below override
+ * the :root defaults.
+ */
+:root,
+[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-surface: #f4f4f5;
+  --color-surface-hover: #e4e4e7;
+  --color-text: #18181b;
+  --color-muted: #52525b;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-border: #e4e4e7;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-body);
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius: 8px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #09090b;
+  --color-surface: #18181b;
+  --color-surface-hover: #27272a;
+  --color-text: #e4e4e7;
+  --color-muted: #a1a1aa;
+  --color-accent: #60a5fa;
+  --color-accent-hover: #93c5fd;
+  --color-border: #27272a;
+}
+
+/* Reserved for a future retro/8-bit theme using the Bitfantasy font:
+[data-theme="retro"] {
+  --color-bg: #1a1726;
+  --color-surface: #251f33;
+  --color-text: #f8e9c8;
+  --color-muted: #b9a98c;
+  --color-accent: #ff7f3f;
+  --color-accent-hover: #ffa56b;
+  --color-border: #3a3147;
+  --font-body: "Bitfantasy", monospace;
+  --font-heading: "Bitfantasy", monospace;
+}
+*/
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+code, pre, kbd, samp {
+  font-family: var(--font-mono);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
