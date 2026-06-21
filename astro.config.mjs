@@ -8,4 +8,16 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  markdown: {
+    // Dual-theme code highlighting. CSS in global.css maps the data-theme
+    // attribute to the right Shiki variables so highlighting follows the
+    // site theme toggle rather than prefers-color-scheme alone.
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      wrap: true,
+    },
+  },
 });

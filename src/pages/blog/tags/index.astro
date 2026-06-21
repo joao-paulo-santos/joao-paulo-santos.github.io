@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).filter(
+  (p) => !p.data.draft || import.meta.env.DEV
+);
+
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = [...tagCounts.entries()].sort(
+  (a, b) => b[1] - a[1] || a[0].localeCompare(b[0])
+);
+
+const href = (tag: string) =>
+  `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`;
+---
+
+<BaseLayout title="Tags" description="Browse posts by tag.">
+  <section class="mx-auto w-full max-w-3xl px-5 py-16">
+    <a
+      href="/blog"
+      class="text-sm transition hover:text-[color:var(--color-text)]"
+      style="color: var(--color-muted)"
+    >
+      ← Blog
+    </a>
+
+    <h1 class="mt-6 text-3xl font-bold tracking-tight sm:text-4xl">Tags</h1>
+
+    {
+      tags.length === 0 ? (
+        <p class="mt-8" style="color: var(--color-muted)">
+          No tags yet.
+        </p>
+      ) : (
+        <ul class="mt-8 flex flex-wrap gap-2">
+          {tags.map(([tag, count]) => (
+            <li>
+              <a
+                href={href(tag)}
+                class="inline-flex items-center gap-1.5 rounded border border-[color:var(--color-border)] px-2.5 py-1 text-sm transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+              >
+                <span>#{tag}</span>
+                <span class="text-xs opacity-70">{count}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>

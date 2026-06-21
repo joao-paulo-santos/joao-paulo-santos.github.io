@@ -1,0 +1,26 @@
+---
+interface Props {
+  tags: string[];
+}
+const { tags } = Astro.props;
+
+const href = (tag: string) =>
+  `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}`;
+---
+
+{
+  tags.length > 0 && (
+    <ul class="flex flex-wrap gap-1.5">
+      {tags.map((tag) => (
+        <li>
+          <a
+            href={href(tag)}
+            class="rounded border border-[color:var(--color-border)] px-2 py-0.5 text-xs text-[color:var(--color-muted)] transition hover:border-[color:var(--color-accent)] hover:text-[color:var(--color-accent)]"
+          >
+            #{tag}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

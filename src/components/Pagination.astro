@@ -1,0 +1,58 @@
+---
+interface PageData {
+  currentPage: number;
+  lastPage: number;
+  url: { prev?: string; next?: string };
+}
+
+interface Props {
+  page: PageData;
+}
+
+const { page } = Astro.props;
+---
+
+{
+  page.lastPage > 1 && (
+    <nav
+      class="mt-12 flex items-center justify-between border-t border-[color:var(--color-border)] pt-6 text-sm"
+      aria-label="Pagination"
+    >
+      <div class="min-w-[5rem]">
+        {page.url.prev ? (
+          <a
+            href={page.url.prev}
+            class="text-[color:var(--color-accent)] hover:text-[color:var(--color-accent-hover)]"
+            rel="prev"
+          >
+            ← Newer
+          </a>
+        ) : (
+          <span class="opacity-40" style="color: var(--color-muted)">
+            ← Newer
+          </span>
+        )}
+      </div>
+
+      <span style="color: var(--color-muted)">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+
+      <div class="min-w-[5rem] text-right">
+        {page.url.next ? (
+          <a
+            href={page.url.next}
+            class="text-[color:var(--color-accent)] hover:text-[color:var(--color-accent-hover)]"
+            rel="next"
+          >
+            Older →
+          </a>
+        ) : (
+          <span class="opacity-40" style="color: var(--color-muted)">
+            Older →
+          </span>
+        )}
+      </div>
+    </nav>
+  )
+}

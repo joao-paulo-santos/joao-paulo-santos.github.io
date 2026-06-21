@@ -183,3 +183,19 @@ code, pre, kbd, samp {
   border-top: 1px solid var(--color-border);
   margin: 2rem 0;
 }
+
+/*
+ * Shiki dual-theme override. Astro emits --shiki-dark custom properties on
+ * each token (the light theme is the default color, the dark theme is a
+ * variable). These rules make the dark theme follow the site's [data-theme]
+ * attribute so the toggle flips code colors too, instead of relying on
+ * prefers-color-scheme alone.
+ */
+html[data-theme='dark'] .astro-code,
+html[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
