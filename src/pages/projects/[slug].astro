@@ -1,0 +1,134 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import UpdateList from '../../components/UpdateList.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const allUpdates = await getCollection('updates');
+const updates = allUpdates.filter((u) => u.data.project === project.id);
+
+const {
+  name,
+  description,
+  tech,
+  repo,
+  demo,
+  status,
+  pubDate,
+  updatedDate,
+} = project.data;
+
+const statusLabels = {
+  active: 'Active',
+  paused: 'Paused',
+  finished: 'Finished',
+} as const;
+const statusColors = {
+  active: '#22c55e',
+  paused: '#f59e0b',
+  finished: '#71717a',
+} as const;
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={name} description={description}>
+  <article class="mx-auto w-full max-w-3xl px-5 py-16">
+    <a
+      href="/projects"
+      class="text-sm transition hover:text-[color:var(--color-text)]"
+      style="color: var(--color-muted)"
+    >
+      ← All projects
+    </a>
+
+    <header class="mt-6 border-b border-[color:var(--color-border)] pb-6">
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
+        <span
+          class="inline-flex items-center gap-1.5 text-sm font-medium"
+          style={`color: ${statusColors[status]}`}
+        >
+          <span
+            class="h-2 w-2 rounded-full"
+            style={`background-color: ${statusColors[status]}`}
+          ></span>
+          {statusLabels[status]}
+        </span>
+      </div>
+
+      <p class="mt-3 text-lg" style="color: var(--color-muted)">
+        {description}
+      </p>
+
+      <div
+        class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"
+        style="color: var(--color-muted)"
+      >
+        <time datetime={pubDate.toISOString()}>
+          Started {dateFmt.format(pubDate)}
+        </time>
+        {
+          updatedDate && (
+            <time datetime={updatedDate.toISOString()}>
+              Updated {dateFmt.format(updatedDate)}
+            </time>
+          )
+        }
+        {
+          repo && (
+            <a href={repo} target="_blank" rel="noopener">
+              Repository ↗
+            </a>
+          )
+        }
+        {
+          demo && (
+            <a href={demo} target="_blank" rel="noopener">
+              Live demo ↗
+            </a>
+          )
+        }
+      </div>
+
+      {
+        tech.length > 0 && (
+          <ul class="mt-4 flex flex-wrap gap-1.5">
+            {tech.map((t) => (
+              <li class="rounded border border-[color:var(--color-border)] px-2 py-0.5 text-xs">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose mt-8">
+      <Content />
+    </div>
+
+    <section class="mt-16">
+      <h2 class="text-xl font-semibold">Updates</h2>
+      <p class="mt-1 text-sm" style="color: var(--color-muted)">
+        Chronological changelog for this project.
+      </p>
+      <div class="mt-6">
+        <UpdateList updates={updates} />
+      </div>
+    </section>
+  </article>
+</BaseLayout>
