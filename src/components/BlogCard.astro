@@ -4,10 +4,12 @@ import FormattedDate from './FormattedDate.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { post } = Astro.props;
+const { post, headingLevel = 'h2' } = Astro.props;
 const { title, description, pubDate, tags } = post.data;
+const Tag = headingLevel;
 
 function readingTime(body: string | undefined): number {
   if (!body) return 1;
@@ -27,14 +29,14 @@ const minutes = readingTime(post.body);
     <span>{minutes} min read</span>
   </div>
 
-  <h2 class="text-xl font-semibold tracking-tight">
+  <Tag class="text-xl font-semibold tracking-tight">
     <a
       href={`/blog/${post.id}`}
       class="text-[color:var(--color-text)] transition hover:text-[color:var(--color-accent)]"
     >
       {title}
     </a>
-  </h2>
+  </Tag>
 
   <p class="text-sm" style="color: var(--color-muted)">{description}</p>
 

@@ -1,10 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 // User page served at the apex of joao-paulo-santos.github.io, so no `base` is needed.
 export default defineConfig({
   site: 'https://joao-paulo-santos.github.io',
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },

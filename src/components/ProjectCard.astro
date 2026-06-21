@@ -3,10 +3,12 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { project } = Astro.props;
+const { project, headingLevel = 'h2' } = Astro.props;
 const { name, description, tech, status, pubDate } = project.data;
+const Tag = headingLevel;
 
 const statusLabels: Record<typeof status, string> = {
   active: 'Active',
@@ -30,11 +32,11 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
   class="group flex h-full flex-col gap-3 rounded-lg border border-[color:var(--color-border)] p-5 transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-surface)]"
 >
   <div class="flex items-start justify-between gap-3">
-    <h3
+    <Tag
       class="font-semibold text-[color:var(--color-text)] group-hover:text-[color:var(--color-accent)]"
     >
       {name}
-    </h3>
+    </Tag>
     <span
       class="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium"
       style={`color: ${statusColors[status]}`}
