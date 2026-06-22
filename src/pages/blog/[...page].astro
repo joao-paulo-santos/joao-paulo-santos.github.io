@@ -19,13 +19,14 @@ const { page } = Astro.props;
 ---
 
 <BaseLayout title="Blog" description="Writing by João Paulo Santos.">
-  <section class="mx-auto w-full max-w-3xl px-5 py-16">
+  <section class="mx-auto w-full max-w-3xl px-5 py-14 sm:py-16">
+    <p class="eyebrow mb-1">Writing</p>
     <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Blog</h1>
     <p class="mt-3" style="color: var(--color-muted)">
       Posts, notes, and the occasional longer piece.
     </p>
 
-    <div class="mt-8">
+    <div class="mt-8 divide-y divide-[color:var(--color-border)]">
       {page.data.map((post) => <BlogCard post={post} />)}
     </div>
 

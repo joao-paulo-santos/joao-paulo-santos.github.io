@@ -15,7 +15,7 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
 const socialImage = new URL(image, Astro.site ?? SITE_URL);
-const pageTitle = title === SITE_TITLE ? title : `${title} — ${SITE_TITLE}`;
+const pageTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
 ---
 
 <meta charset="UTF-8" />

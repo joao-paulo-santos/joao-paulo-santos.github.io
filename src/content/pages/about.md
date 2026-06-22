@@ -3,27 +3,16 @@ title: About
 description: About João Paulo Santos.
 ---
 
-I'm a software developer. This is my personal site — a place for projects,
-writing, and the occasional update on what I'm working on.
+Fullstack Engineer at [Bloq.it](https://bloq.it) · Portugal.
 
-## Replace this
+Programming generalist with 13+ years of experience. I tend to get curious
+about too many things, and then learn them.
 
-This page renders from `src/content/pages/about.md`. Edit that file to put
-your actual bio here. Supports full markdown: headings, lists, links, code
-blocks, images.
+## Currently working on
 
-- Bullet lists work
-- [So do links](https://example.com)
-- `inline code` works
+- **[waypoint-memory](https://github.com/joao-paulo-santos/waypoint-memory)**: Self-hosted project management server (boards, sprints, calendar, contacts, wiki) with an MCP interface so AI agents can work against it. Go, Postgres.
+- **[velo](https://github.com/joao-paulo-santos/velo)**: A fast Wayland launcher where every plugin is a plain TOML file. No compiled modes, no scripts. Built on tofi's rendering for ~2-6ms startup.
 
-```ts
-// And so do fenced code blocks.
-function greet(name: string): string {
-  return `Hello, ${name}`;
-}
-```
+## Stack
 
-## What goes here eventually
-
-A few paragraphs on who you are, what you work on, and what you're looking
-for. Keep it short — readers skim. Two or three paragraphs is plenty.
+Flutter, .NET, Go, C, TypeScript, Node.js, SQL Server, Docker, React, Lisp.

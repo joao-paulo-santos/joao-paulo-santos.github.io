@@ -7,7 +7,7 @@ tags:
 ---
 
 The placeholder posts in this collection exist to exercise the blog schema
-and layout. Replace them with real writing before going live — they are
+and layout. Replace them with real writing before going live. They are
 clearly marked as placeholders so there's no risk of shipping them by
 accident.
 

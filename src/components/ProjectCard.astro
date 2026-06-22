@@ -16,10 +16,21 @@ const statusLabels: Record<typeof status, string> = {
   finished: 'Finished',
 };
 const statusColors: Record<typeof status, string> = {
-  active: '#22c55e',
+  active: 'var(--color-success)',
   paused: '#f59e0b',
-  finished: '#71717a',
+  finished: 'var(--color-subtle)',
 };
+
+// Deterministic accent hue from the project id, so each card gets a stable
+// color identity without color-of-the-rainbow chaos.
+function hueFor(seed: string): number {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) {
+    h = ((h << 5) - h + seed.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h) % 360;
+}
+const accent = `hsl(${hueFor(project.id)}, 65%, 55%)`;
 
 const dateFmt = new Intl.DateTimeFormat('en-US', {
   month: 'short',
@@ -29,11 +40,12 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
 
 <a
   href={`/projects/${project.id}`}
-  class="group flex h-full flex-col gap-3 rounded-lg border border-[color:var(--color-border)] p-5 transition hover:border-[color:var(--color-accent)] hover:bg-[color:var(--color-surface)]"
+  class="group relative flex h-full flex-col gap-3 overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--color-border)] border-l-[3px] bg-[color:var(--color-bg-elevated)] p-5 shadow-[var(--shadow-sm)] transition hover:-translate-y-0.5 hover:border-[color:var(--color-border-strong)] hover:shadow-[var(--shadow)]"
+  style={`border-left-color: ${accent};`}
 >
   <div class="flex items-start justify-between gap-3">
     <Tag
-      class="font-semibold text-[color:var(--color-text)] group-hover:text-[color:var(--color-accent)]"
+      class="font-semibold tracking-tight text-[color:var(--color-text)] transition group-hover:text-[color:var(--color-accent)]"
     >
       {name}
     </Tag>
@@ -55,7 +67,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
     tech.length > 0 && (
       <ul class="mt-auto flex flex-wrap gap-1.5 pt-2">
         {tech.map((t) => (
-          <li class="rounded border border-[color:var(--color-border)] px-1.5 py-0.5 text-xs text-[color:var(--color-muted)]">
+          <li class="rounded-md border border-[color:var(--color-border)] px-1.5 py-0.5 font-mono text-[0.7rem] text-[color:var(--color-subtle)]">
             {t}
           </li>
         ))}
@@ -63,7 +75,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
     )
   }
 
-  <p class="text-xs" style="color: var(--color-muted)">
+  <p class="font-mono text-xs" style="color: var(--color-subtle)">
     {dateFmt.format(pubDate)}
   </p>
 </a>

@@ -14,7 +14,7 @@ pubDate: 2024-01-15
 updatedDate: 2024-06-01
 ---
 
-This is a placeholder project. Replace it with a real one — the markdown body
+This is a placeholder project. Replace it with a real one. The markdown body
 renders on the project's detail page.
 
 ## Highlights

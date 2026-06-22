@@ -40,7 +40,7 @@ const blog = defineCollection({
 
 ## What I kept
 
-React isn't gone entirely — Astro lets you drop in framework components as
+React isn't gone entirely. Astro lets you drop in framework components as
 islands when you actually need them. For now, the theme toggle is a 10-line
 vanilla script and that's all the JavaScript the whole site ships.
 

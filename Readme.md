@@ -43,7 +43,7 @@ src/
   content/      Markdown collections: blog/, projects/, updates/
   layouts/      BaseLayout.astro (HTML shell)
   pages/        File-based routes
-  styles/       global.css — Tailwind import + theme CSS variables
+  styles/       global.css: Tailwind import + theme CSS variables
   consts.ts     Site title, description, socials
 public/         Static assets served as-is (profile pic, icons, favicon)
 astro.config.mjs

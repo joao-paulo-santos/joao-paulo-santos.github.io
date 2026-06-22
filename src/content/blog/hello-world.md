@@ -8,7 +8,7 @@ tags:
 ---
 
 This is the first post on the rebuilt site. It exists to verify the blog
-pipeline end to end — collection schema, post detail route, RSS feed, tags,
+pipeline end to end: collection schema, post detail route, RSS feed, tags,
 reading-time estimate, and code highlighting.
 
 More writing will land here as things ship.

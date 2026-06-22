@@ -1,5 +1,5 @@
 ---
-title: Draft Post — Should Not Appear in Production
+title: Draft Post, Should Not Appear in Production
 description: Verifies the draft filter works.
 pubDate: 2026-06-25
 tags:
