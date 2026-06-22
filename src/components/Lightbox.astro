@@ -1,0 +1,61 @@
+---
+// Lightbox.astro - modal overlay for zooming inline images on the project detail page.
+---
+
+<div
+  id="lightbox"
+  class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 p-4 backdrop-blur-sm sm:p-8"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image viewer"
+>
+  <button
+    type="button"
+    id="lightbox-close"
+    class="absolute right-4 top-4 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/20"
+    aria-label="Close image viewer"
+  >
+    Esc
+  </button>
+  <img
+    id="lightbox-img"
+    class="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+    alt=""
+  />
+</div>
+
+<script is:inline>
+  (function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    if (!lb || !lbImg) return;
+
+    function open(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('article img').forEach(function (img) {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function () {
+        open(img.currentSrc || img.src, img.alt);
+      });
+    });
+
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb || e.target.id === 'lightbox-close') close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lb.classList.contains('hidden')) close();
+    });
+  })();
+</script>

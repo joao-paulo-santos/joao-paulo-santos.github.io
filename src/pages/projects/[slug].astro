@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import UpdateList from '../../components/UpdateList.astro';
+import Lightbox from '../../components/Lightbox.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -26,6 +27,7 @@ const {
   status,
   pubDate,
   updatedDate,
+  cover,
 } = project.data;
 
 const statusLabels = {
@@ -56,6 +58,16 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
     </a>
 
     <header class="mt-6 border-b border-[color:var(--color-border)] pb-6">
+      {
+        cover && (
+          <img
+            src={cover}
+            alt={`${name} cover`}
+            class="mb-6 mx-auto block max-h-32 w-auto object-contain"
+            loading="eager"
+          />
+        )
+      }
       <div class="flex flex-wrap items-start justify-between gap-3">
         <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{name}</h1>
         <span
@@ -131,4 +143,6 @@ const dateFmt = new Intl.DateTimeFormat('en-US', {
       </div>
     </section>
   </article>
+
+  <Lightbox />
 </BaseLayout>
